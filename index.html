@@ -51,7 +51,6 @@
   /* eyebrow face toggle — DIN 2014 vs Space Mono (team comparison) */
   :root[data-type="din"] .kicker,
   :root[data-type="din"] .ucard .tag{font-family:var(--din);font-weight:600;letter-spacing:.16em}
-  #typeToggle{border:1px solid var(--line-2);border-radius:8px}
 
   /* ————— top bar ————— */
   .topbar{height:var(--topbar-h);display:flex;align-items:center;justify-content:space-between;padding:0 18px;border-bottom:1px solid var(--line);background:var(--bg);position:relative;z-index:30}
@@ -99,8 +98,8 @@
   .center > *{position:relative}
   .chat-scroll{flex:1;overflow-y:auto;padding:0 32px}
   .chat-inner{max-width:720px;margin:0 auto;padding:28px 0 24px}
-  /* empty state fills the column; content bottom-aligns so the starter cards group with the composer */
-  #emptyState{min-height:100%;display:flex;flex-direction:column;justify-content:flex-end;padding-bottom:10px}
+  /* empty state fills the column; content is vertically centered with even top/bottom padding */
+  #emptyState{min-height:100%;display:flex;flex-direction:column;justify-content:center;padding-top:24px;padding-bottom:24px}
 
   /* empty state (merged landing) */
   .welcome{text-align:center;margin-bottom:clamp(40px,8vh,72px)}
@@ -415,7 +414,6 @@
   </a>
   <nav class="top-right">
     <button class="top-link" id="navLibrary" onclick="app.openLibraryPage()">Library</button>
-    <button class="top-link" id="typeToggle" onclick="app.toggleType()" title="Compare eyebrow typeface: DIN 2014 vs Space Mono">Eyebrows: DIN 2014</button>
     <button class="icon-btn" id="themeToggle" onclick="app.toggleTheme()" title="Switch light or dark" aria-label="Toggle theme">☾</button>
     <button class="avatar" aria-label="Account">MG</button>
   </nav>
@@ -851,14 +849,6 @@ const app = {
     document.getElementById("themeToggle").textContent = toDark ? "☀" : "☾";
   },
 
-  /* — eyebrow typeface (team comparison) — */
-  toggleType(){
-    const root = document.documentElement;
-    const next = root.getAttribute("data-type") === "din" ? "mono" : "din";
-    root.setAttribute("data-type", next);
-    document.getElementById("typeToggle").textContent = next === "din" ? "Eyebrows: DIN 2014" : "Eyebrows: Space Mono";
-  },
-
   /* — threads — */
   toggleRail(){ this.shell.dataset.rail = this.shell.dataset.rail === "collapsed" ? "open" : "collapsed"; },
   newChat(){
@@ -1265,8 +1255,7 @@ app.refreshLibrary();
 (function(){
   document.documentElement.setAttribute("data-theme", "light");
   document.getElementById("themeToggle").textContent = "☾";
-  document.documentElement.setAttribute("data-type", "din");
-  document.getElementById("typeToggle").textContent = "Eyebrows: DIN 2014";
+  document.documentElement.setAttribute("data-type", "din"); // committed: DIN 2014 eyebrows
 })();
 </script>
 </body>
